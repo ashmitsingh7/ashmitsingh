@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en"><head><script>if(window.top===window)location.replace("../index.html#home")</script><script>window.__resources={"https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js": "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js", "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"};</script><script src="../assets/js/react.production.min.js"></script><script src="../assets/js/react-dom.production.min.js"></script><script>window.__dcFn=function(DCLogic,StreamableLogic,React){
+class Component extends DCLogic {
+  componentDidMount() {
+    const start = () => {
+      const ov = document.getElementById('intro');
+      if (!ov) return;
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || /nointro/.test(window.location.search)) { ov.remove(); return; }
+      const track = document.getElementById('introTrack');
+      const words = Array.prototype.slice.call(track.querySelectorAll('[data-w]'));
+      const lh = words[0].offsetHeight;
+      const cy = ov.clientHeight / 2;
+      const s = 3, F = words.length - 1, dur = 3800;
+      let raf = 0, gone = false;
+      const lift = () => {
+        if (gone) return; gone = true; cancelAnimationFrame(raf);
+        ov.style.transition = 'transform 900ms cubic-bezier(0.7, 0, 0.2, 1)';
+        ov.style.transform = 'translateY(-100%)';
+        setTimeout(() => ov.remove(), 1000);
+      };
+      ov.addEventListener('click', lift);
+      window.addEventListener('keydown', lift, { once: true });
+      const t0 = performance.now();
+      const frame = (now) => {
+        if (gone) return;
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        const y = cy - lh / 2 - (s + (F - s) * e) * lh;
+        track.style.transform = 'translate3d(0,' + y + 'px,0)';
+        for (let i = 0; i < words.length; i++) {
+          const d = Math.abs(i * lh + lh / 2 + y - cy) / lh;
+          const k = Math.max(0, 1 - d);
+          words[i].style.opacity = (0.2 + 0.8 * k).toFixed(3);
+        }
+        if (p < 1) raf = requestAnimationFrame(frame); else setTimeout(lift, 900);
+      };
+      raf = requestAnimationFrame(frame);
+    };
+    setTimeout(start, 60);
+  }
+  renderVals() {
+    return {};
+  }
+}
+
+;return (typeof Component!=="undefined"&&Component)||undefined};</script>
+<meta charset="utf-8">
+<title>Mobile landing</title>
+<script src="../assets/js/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@font-face{font-family:'Manrope';font-style:normal;font-display:swap;font-weight:200 800;src:url('../assets/fonts/manrope-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}@font-face{font-family:'Manrope';font-style:normal;font-display:swap;font-weight:200 800;src:url('../assets/fonts/manrope-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}</style><style>
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+</style>
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:3px solid #E8C766;outline-offset:6px;border-radius:14px}
+.pick{transition:transform 500ms cubic-bezier(0.2,0.7,0.2,1), filter 500ms ease}
+.pick:hover,.pick:focus-visible{transform:translateY(-8px);filter:drop-shadow(0 0 28px var(--c))}
+.btn{transition:transform 300ms ease, box-shadow 300ms ease}
+.btn:hover,.btn:focus-visible{transform:translateY(-3px)}
+.wsq{animation:wsq 4s linear infinite}
+.wsn{animation:wsn 4s linear infinite}
+.armspin{animation:arm 5s ease-in-out infinite;transform-box:fill-box}
+@keyframes wsq{to{transform:translateX(120px)}}
+@keyframes wsn{to{transform:translateX(160px)}}
+@keyframes wsqm{to{transform:translateX(100px)}}
+@keyframes wsnm{to{transform:translateX(130px)}}
+.msq{animation:wsqm 4s linear infinite}.msn{animation:wsnm 4s linear infinite}
+.glowb{filter:drop-shadow(0 0 8px rgba(157,180,255,0.75))}
+.glowg{filter:drop-shadow(0 0 8px rgba(232,199,102,0.75))}
+@media (max-width:760px){.dskw{display:none !important}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<style>html,body{height:100%!important;overflow:hidden!important;margin:0}
+#landing-m{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;height:100dvh!important;box-sizing:border-box!important;padding:max(20px,env(safe-area-inset-top)) 22px max(20px,env(safe-area-inset-bottom))!important;display:grid!important;grid-template-columns:1fr 1fr!important;grid-template-rows:auto auto 1fr auto!important;align-content:center!important;align-items:center!important;gap:clamp(10px,2.4vh,22px) 12px!important;background:radial-gradient(ellipse 70% 45% at 14% 52%,rgba(37,99,235,0.42),transparent 70%),radial-gradient(ellipse 70% 45% at 86% 52%,rgba(128,0,32,0.55),transparent 70%),#07070C!important}
+#landing-m>h1{grid-column:1/-1!important;grid-row:1!important;font-size:clamp(38px,11vw,52px)!important;text-align:center!important}
+#landing-m>a.pick[href="Vlsi.dc.html"]{grid-column:1!important;grid-row:2!important;justify-self:start!important;font-size:clamp(30px,9vw,44px)!important}
+#landing-m>a.pick[href="Robotics.dc.html"]{grid-column:2!important;grid-row:2!important;justify-self:end!important;text-align:right!important;font-size:clamp(26px,7.6vw,38px)!important}
+#landing-m>div:not(#intro){grid-column:1/-1!important;grid-row:3!important;width:100%!important;display:flex!important;justify-content:center!important}
+#landing-m>div>svg{width:100%!important;height:auto!important;max-height:24vh!important}
+#landing-m>a.btn[href="Vlsi.dc.html"]{grid-column:1!important;grid-row:4!important;justify-self:start!important}
+#landing-m>a.btn[href="Robotics.dc.html"]{grid-column:2!important;grid-row:4!important;justify-self:end!important}
+#landing-m .btn{min-height:44px!important;padding:0 14px!important;font-size:14px!important;white-space:nowrap!important}
+#landing-m{background:#000!important;grid-template-columns:auto auto!important;grid-template-rows:auto auto auto auto!important;justify-content:center!important;align-content:center!important;justify-items:center!important;gap:clamp(14px,3vh,28px) 14px!important}
+#landing-m>h1{grid-column:1/-1!important;grid-row:1!important}
+#landing-m>a.pick[href="Vlsi.dc.html"]{grid-column:1!important;grid-row:2!important;justify-self:center!important;text-align:center!important;background:none!important;-webkit-text-fill-color:currentColor!important;color:#F4EFE3!important}
+#landing-m>a.pick[href="Robotics.dc.html"]{grid-column:2!important;grid-row:2!important;justify-self:center!important;text-align:center!important;background:none!important;-webkit-text-fill-color:currentColor!important;color:#F2C94C!important}
+#landing-m>a.btn{align-self:start!important}
+#landing-m>a.btn[href="Vlsi.dc.html"]{grid-column:1!important;grid-row:3!important;justify-self:center!important;background:transparent!important;box-shadow:none!important;border:2px solid #F4EFE3!important;color:#F4EFE3!important}
+#landing-m>a.btn[href="Robotics.dc.html"]{grid-column:2!important;grid-row:3!important;justify-self:center!important;background:transparent!important;box-shadow:none!important;border:2px solid #F2C94C!important;color:#F2C94C!important}
+#landing-m>div:not(#intro){grid-column:1/-1!important;grid-row:4!important;width:100%!important;display:flex!important;justify-content:center!important;margin-top:clamp(8px,2vh,20px)!important}
+#landing-m #intro{position:fixed!important;inset:0!important;left:0!important;right:0!important;top:0!important;bottom:0!important;width:100%!important;height:100%!important;background:#07070C!important;z-index:30!important}
+#landing-m:has(#intro)>*:not(#intro){visibility:hidden!important}
+#landing-m:has(#intro){background:#07070C!important}
+#introTrack{left:0!important;right:0!important;width:100%!important;text-align:right!important;font-size:clamp(30px,9.4vw,44px)!important;padding:0 24px 0 16px!important;line-height:1.12!important;box-sizing:border-box!important}
+#introTrack>div{letter-spacing:-.03em!important;text-align:right!important}
+#introTrack *{text-align:right!important}
+#intro>div:last-child{right:24px!important;left:auto!important;text-align:right!important;bottom:calc(28px + env(safe-area-inset-bottom,0px))!important}</style>
+<div id="landing-m" style="position: relative; width: 390px; height: 1100px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 36px 0 0; overflow: hidden; font-family: 'Manrope', system-ui, sans-serif; background: radial-gradient(ellipse 100% 30% at 50% 22%, rgba(37,99,235,0.38), transparent 70%), radial-gradient(ellipse 100% 30% at 50% 82%, rgba(128,0,32,0.5), transparent 70%), #07070C">
+<div id="intro" role="presentation" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 20; overflow: hidden; background: #07070C; cursor: pointer; -webkit-mask-image: none">
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%)">
+<div id="introTrack" style="position: absolute; left: 0; right: 0; top: 0; padding: 0 20px; box-sizing: border-box; text-align: right; font-size: 52px; font-weight: 700; line-height: 1.04; letter-spacing: -0.05em; will-change: transform">
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">RTL</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">firmware</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">synthesis</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">motors</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">layout</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">ROS 2</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">timing</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">encoders</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">verification</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">manipulators</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">silicon</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">vision</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">analog</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">control</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">Verilog</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">STM32</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">place &amp; route</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">PCBs</div>
+<div data-w="" style="color: #9DB4FF; opacity: 0.2; white-space: nowrap">SoC</div>
+<div data-w="" style="color: #E8C766; opacity: 0.2; white-space: nowrap">sensors</div>
+<div data-w="" style="color: #ECECE8; opacity: 0.2; white-space: nowrap">Ashmit Singh</div>
+</div>
+</div>
+<div style="position: absolute; right: 20px; bottom: 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: #8A8A92">TAP TO SKIP</div>
+</div>
+
+
+
+
+<h1 style="margin: 0; text-align: center; font-size: 56px; font-weight: 700; line-height: 1.05; letter-spacing: -0.05em; padding-bottom: 0.06em; color: #ECECE8">Ashmit Singh</h1>
+<a class="pick" href="Vlsi.dc.html" aria-label="Enter VLSI" style="--c: #9DB4FF; display: block; font-size: 48px; color: transparent; -webkit-background-clip: text; background-clip: text; font-weight: 700; letter-spacing: -0.05em; padding-bottom: 0.06em; line-height: 1; background-image: linear-gradient(180deg, #FFFFFF 0%, #C4CEDD 55%, #8C99AE 100%)">VLSI</a>
+<a class="btn" href="Vlsi.dc.html" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 30px; border-radius: 999px; background: linear-gradient(180deg, #F7F9FC 0%, #AEB8C6 100%); color: #0B1536; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; box-shadow: 0 10px 30px rgba(60,98,216,0.35)">Explore VLSI <span aria-hidden="true">→</span></a>
+<div style="margin-top: 4px"><svg aria-hidden="true" sc-camel-view-box="0 0 1440 470" style="display: block; width: 100%; height: auto">
+<defs>
+<linearGradient id="gsq" sc-camel-gradient-units="userSpaceOnUse" x1="330" y1="0" x2="760" y2="0"><stop offset="0" stop-color="#fff"></stop><stop offset="0.4" stop-color="#fff"></stop><stop offset="1" stop-color="#000"></stop></linearGradient>
+<linearGradient id="gsn" sc-camel-gradient-units="userSpaceOnUse" x1="560" y1="0" x2="900" y2="0"><stop offset="0" stop-color="#000"></stop><stop offset="0.6" stop-color="#fff"></stop><stop offset="1" stop-color="#fff"></stop></linearGradient>
+<mask id="msq" sc-camel-mask-units="userSpaceOnUse" x="-2000" y="-2000" width="4000" height="4000"><rect x="-2000" y="-2000" width="4000" height="4000" fill="url(#gsq)"></rect></mask>
+<mask id="msn" sc-camel-mask-units="userSpaceOnUse" x="-2000" y="-2000" width="4000" height="4000"><rect x="-2000" y="-2000" width="4000" height="4000" fill="url(#gsn)"></rect></mask>
+</defs>
+<path d="M720 398 H1440 M0 398 H720" stroke="#2A2A33" stroke-width="2" fill="none"></path>
+<clipPath id="cw"><rect x="330" y="100" width="666" height="260"></rect></clipPath>
+<g transform="translate(215 230)"><g fill="none" stroke="#DDE5F2" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+<rect x="-75" y="-75" width="150" height="150" rx="12" fill="#3C62D8" fill-opacity="0.16" stroke-width="4"></rect>
+<rect x="-40" y="-40" width="80" height="80" rx="6" fill="#DDE5F2" fill-opacity="0.14"></rect>
+<path d="M-24 0 H24 M0 -24 V24" stroke-opacity="0.5" stroke-width="2"></path>
+<path d="M-87 -40 H-75 M75 -40 H87"></path><path d="M-87 -20 H-75 M75 -20 H87"></path><path d="M-87 0 H-75 M75 0 H87"></path><path d="M-87 20 H-75 M75 20 H87"></path><path d="M-87 40 H-75 M75 40 H87"></path><path d="M-40 -87 V-75 M-40 75 V87"></path><path d="M-20 -87 V-75 M-20 75 V87"></path><path d="M0 -87 V-75 M0 75 V87"></path><path d="M20 -87 V-75 M20 75 V87"></path><path d="M40 -87 V-75 M40 75 V87"></path>
+<path d="M-87 -40 H-130 L-160 -70 M-87 -20 H-150 M-87 20 H-150 M-87 40 H-130 L-160 70 M-40 -87 V-120 L-14 -146 M40 -87 V-120 L66 -146 M-40 87 V120 L-14 146 M40 87 V120 L66 146" stroke-opacity="0.55" stroke-width="2"></path>
+<path d="M87 0 H118" stroke="#9DB4FF" stroke-width="4"></path>
+</g>
+<g fill="#DDE5F2"><circle cx="-160" cy="-70" r="4"></circle><circle cx="-150" cy="-20" r="4"></circle><circle cx="-150" cy="20" r="4"></circle><circle cx="-160" cy="70" r="4"></circle><circle cx="-14" cy="-146" r="4"></circle><circle cx="66" cy="-146" r="4"></circle><circle cx="-14" cy="146" r="4"></circle><circle cx="66" cy="146" r="4"></circle></g></g>
+<g clip-path="url(#cw)">
+<g mask="url(#msq)"><g class="wsq"><path class="glowb" d="M90 285 H150.0 V175 H210.0 V285 H270.0 V175 H330.0 V285 H390.0 V175 H450.0 V285 H510.0 V175 H570.0 V285 H630.0 V175 H690.0 V285 H750.0 V175 H810.0 V285 H870.0 V175 H930.0 V285 H990.0 V175 H1050.0 V285 H1110.0 V175 H1170.0 V285 H1230.0 V175 H1290.0 V285 H1350.0" fill="none" stroke="#9DB4FF" stroke-width="5" stroke-linejoin="round"></path></g></g>
+<g mask="url(#msn)"><g class="wsn"><path class="glowg" d="M10 230 L14 221.4 L18 213.0 L22 205.0 L26 197.7 L30 191.1 L34 185.5 L38 181.0 L42 177.7 L46 175.7 L50 175.0 L54 175.7 L58 177.7 L62 181.0 L66 185.5 L70 191.1 L74 197.7 L78 205.0 L82 213.0 L86 221.4 L90 230.0 L94 238.6 L98 247.0 L102 255.0 L106 262.3 L110 268.9 L114 274.5 L118 279.0 L122 282.3 L126 284.3 L130 285.0 L134 284.3 L138 282.3 L142 279.0 L146 274.5 L150 268.9 L154 262.3 L158 255.0 L162 247.0 L166 238.6 L170 230.0 L174 221.4 L178 213.0 L182 205.0 L186 197.7 L190 191.1 L194 185.5 L198 181.0 L202 177.7 L206 175.7 L210 175.0 L214 175.7 L218 177.7 L222 181.0 L226 185.5 L230 191.1 L234 197.7 L238 205.0 L242 213.0 L246 221.4 L250 230.0 L254 238.6 L258 247.0 L262 255.0 L266 262.3 L270 268.9 L274 274.5 L278 279.0 L282 282.3 L286 284.3 L290 285.0 L294 284.3 L298 282.3 L302 279.0 L306 274.5 L310 268.9 L314 262.3 L318 255.0 L322 247.0 L326 238.6 L330 230.0 L334 221.4 L338 213.0 L342 205.0 L346 197.7 L350 191.1 L354 185.5 L358 181.0 L362 177.7 L366 175.7 L370 175.0 L374 175.7 L378 177.7 L382 181.0 L386 185.5 L390 191.1 L394 197.7 L398 205.0 L402 213.0 L406 221.4 L410 230.0 L414 238.6 L418 247.0 L422 255.0 L426 262.3 L430 268.9 L434 274.5 L438 279.0 L442 282.3 L446 284.3 L450 285.0 L454 284.3 L458 282.3 L462 279.0 L466 274.5 L470 268.9 L474 262.3 L478 255.0 L482 247.0 L486 238.6 L490 230.0 L494 221.4 L498 213.0 L502 205.0 L506 197.7 L510 191.1 L514 185.5 L518 181.0 L522 177.7 L526 175.7 L530 175.0 L534 175.7 L538 177.7 L542 181.0 L546 185.5 L550 191.1 L554 197.7 L558 205.0 L562 213.0 L566 221.4 L570 230.0 L574 238.6 L578 247.0 L582 255.0 L586 262.3 L590 268.9 L594 274.5 L598 279.0 L602 282.3 L606 284.3 L610 285.0 L614 284.3 L618 282.3 L622 279.0 L626 274.5 L630 268.9 L634 262.3 L638 255.0 L642 247.0 L646 238.6 L650 230.0 L654 221.4 L658 213.0 L662 205.0 L666 197.7 L670 191.1 L674 185.5 L678 181.0 L682 177.7 L686 175.7 L690 175.0 L694 175.7 L698 177.7 L702 181.0 L706 185.5 L710 191.1 L714 197.7 L718 205.0 L722 213.0 L726 221.4 L730 230.0 L734 238.6 L738 247.0 L742 255.0 L746 262.3 L750 268.9 L754 274.5 L758 279.0 L762 282.3 L766 284.3 L770 285.0 L774 284.3 L778 282.3 L782 279.0 L786 274.5 L790 268.9 L794 262.3 L798 255.0 L802 247.0 L806 238.6 L810 230.0 L814 221.4 L818 213.0 L822 205.0 L826 197.7 L830 191.1 L834 185.5 L838 181.0 L842 177.7 L846 175.7 L850 175.0 L854 175.7 L858 177.7 L862 181.0 L866 185.5 L870 191.1 L874 197.7 L878 205.0 L882 213.0 L886 221.4 L890 230.0 L894 238.6 L898 247.0 L902 255.0 L906 262.3 L910 268.9 L914 274.5 L918 279.0 L922 282.3 L926 284.3 L930 285.0 L934 284.3 L938 282.3 L942 279.0 L946 274.5 L950 268.9 L954 262.3 L958 255.0 L962 247.0 L966 238.6 L970 230.0 L974 221.4 L978 213.0 L982 205.0 L986 197.7 L990 191.1 L994 185.5 L998 181.0 L1002 177.7 L1006 175.7 L1010 175.0 L1014 175.7 L1018 177.7 L1022 181.0 L1026 185.5 L1030 191.1 L1034 197.7 L1038 205.0 L1042 213.0 L1046 221.4 L1050 230.0 L1054 238.6 L1058 247.0 L1062 255.0 L1066 262.3 L1070 268.9 L1074 274.5 L1078 279.0 L1082 282.3 L1086 284.3 L1090 285.0 L1094 284.3 L1098 282.3 L1102 279.0 L1106 274.5 L1110 268.9 L1114 262.3 L1118 255.0 L1122 247.0 L1126 238.6 L1130 230.0 L1134 221.4 L1138 213.0 L1142 205.0 L1146 197.7 L1150 191.1 L1154 185.5 L1158 181.0 L1162 177.7 L1166 175.7 L1170 175.0 L1174 175.7 L1178 177.7 L1182 181.0 L1186 185.5 L1190 191.1 L1194 197.7 L1198 205.0 L1202 213.0 L1206 221.4 L1210 230.0 L1214 238.6 L1218 247.0 L1222 255.0 L1226 262.3 L1230 268.9 L1234 274.5 L1238 279.0 L1242 282.3 L1246 284.3 L1250 285.0 L1254 284.3 L1258 282.3 L1262 279.0 L1266 274.5 L1270 268.9 L1274 262.3 L1278 255.0 L1282 247.0 L1286 238.6 L1290 230.0 L1294 221.4 L1298 213.0 L1302 205.0 L1306 197.7 L1310 191.1 L1314 185.5" fill="none" stroke="#E8C766" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"></path></g></g>
+</g>
+<g transform="translate(1030 230)"><g fill="none" stroke="#E8C766" stroke-linecap="round" stroke-linejoin="round">
+<style>.al{animation:alsw 4s ease-in-out infinite}@keyframes alsw{0%,100%{transform:rotate(0)}22%{transform:rotate(-6.5deg)}55%{transform:rotate(2.5deg)}}.hr{transform-box:view-box;animation:hr 4s ease-out infinite;opacity:0}@keyframes hr{0%{transform:scale(1);opacity:.75}70%{opacity:0}100%{transform:scale(2.3);opacity:0}}@media (prefers-reduced-motion:reduce){.al,.hr{animation:none}}</style><circle class="hr" cx="0" cy="0" r="34" fill="none" stroke="#E8C766" stroke-width="3"></circle><g class="al"><path d="M0 0 L120 -100 L255 -55" stroke-width="12"></path>
+<path d="M255 -55 l40 -15 M255 -55 l40 25" stroke-width="7"></path>
+<circle cx="120" cy="-100" r="12" fill="#1A0509" stroke-width="4"></circle><circle cx="255" cy="-55" r="10" fill="#1A0509" stroke-width="4"></circle></g>
+<circle cx="0" cy="0" r="34" fill="#E8C766" fill-opacity="0.14" stroke-width="4"></circle><circle cx="0" cy="0" r="12" stroke-width="4"></circle>
+<rect x="-30" y="34" width="60" height="116" fill="#3A0916" stroke-width="3"></rect>
+<rect x="-70" y="150" width="140" height="18" rx="4" fill="#3A0916" stroke-width="3"></rect>
+</g></g>
+<path d="M1000 230 H996" stroke="#E8C766" stroke-width="4"></path>
+</svg></div>
+<a class="pick" href="Robotics.dc.html" aria-label="Enter Robotics" style="--c: #E8C766; display: block; font-size: 40px; color: transparent; -webkit-background-clip: text; background-clip: text; font-weight: 700; letter-spacing: -0.05em; padding-bottom: 0.06em; line-height: 1; background-image: linear-gradient(180deg, #FFF3C4 0%, #E5C158 55%, #A9801F 100%)">Robotics</a>
+<a class="btn" href="Robotics.dc.html" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 30px; border-radius: 999px; background: linear-gradient(180deg, #FFF3C4 0%, #D4AF37 100%); color: #3A0916; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; box-shadow: 0 10px 30px rgba(160,35,63,0.45)">Explore Robotics <span aria-hidden="true">→</span></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const start = () => {
+      const ov = document.getElementById('intro');
+      if (!ov) return;
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || /nointro/.test(window.location.search)) { ov.remove(); return; }
+      const track = document.getElementById('introTrack');
+      const words = Array.prototype.slice.call(track.querySelectorAll('[data-w]'));
+      const lh = words[0].offsetHeight;
+      const cy = ov.clientHeight / 2;
+      const s = 3, F = words.length - 1, dur = 3800;
+      let raf = 0, gone = false;
+      const lift = () => {
+        if (gone) return; gone = true; cancelAnimationFrame(raf);
+        ov.style.transition = 'transform 900ms cubic-bezier(0.7, 0, 0.2, 1)';
+        ov.style.transform = 'translateY(-100%)';
+        setTimeout(() => ov.remove(), 1000);
+      };
+      ov.addEventListener('click', lift);
+      window.addEventListener('keydown', lift, { once: true });
+      const t0 = performance.now();
+      const frame = (now) => {
+        if (gone) return;
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        const y = cy - lh / 2 - (s + (F - s) * e) * lh;
+        track.style.transform = 'translate3d(0,' + y + 'px,0)';
+        for (let i = 0; i < words.length; i++) {
+          const d = Math.abs(i * lh + lh / 2 + y - cy) / lh;
+          const k = Math.max(0, 1 - d);
+          words[i].style.opacity = (0.2 + 0.8 * k).toFixed(3);
+        }
+        if (p < 1) raf = requestAnimationFrame(frame); else setTimeout(lift, 900);
+      };
+      raf = requestAnimationFrame(frame);
+    };
+    setTimeout(start, 60);
+  }
+  renderVals() {
+    return {};
+  }
+}
+</script>
+
+
+</body></html>

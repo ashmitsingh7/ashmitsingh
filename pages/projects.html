@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en"><head><script>if(window.top===window)location.replace("../index.html#projects")</script><script>window.__resources={"https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js": "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js", "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"};</script><script src="../assets/js/react.production.min.js"></script><script src="../assets/js/react-dom.production.min.js"></script><script>window.__dcFn=function(DCLogic,StreamableLogic,React){
+class Component extends DCLogic {
+  componentDidMount() {
+    const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+  }
+  componentWillUnmount() {
+    if (this.timer) clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state || {};
+    const step = s.step || 0;
+    const V = '#9DB4FF';
+    const R = '#E8C766';
+    const T = (arr) => arr.map((t) => ({ t }));
+    const base = 'https://github.com/ashmitsingh7/';
+    const list = [
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'Harris Corner Detector ASIC', text: 'A streaming Harris corner detector in SystemVerilog, taken to a routed layout and checked against a bit-exact reference model.', tags: T(['Computer Vision', 'SystemVerilog', 'Genus', 'Innovus', 'Conformal LEC']), href: base + 'harris-corner-detector' },
+      { mode: 'ROBOTICS', color: R, artBg: '#3A0916', title: 'Warehouse DWS at Delhivery', text: 'Parcel-measuring station built solo at Delhivery. An Intel RealSense D455 and point-cloud vision (RANSAC, PCA) size each parcel; tested on 100+ real shipments.', tags: T(['Computer Vision', 'RealSense D455', 'Point Clouds', 'ROS2', 'FastAPI']), href: base + 'dws' },
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'Load-Aware Adaptive H-Bridge', text: 'A brushed-DC motor driver that senses its own load and eases off the PWM as current climbs, instead of waiting for a hard cutoff. Built in Cadence at 90 nm.', tags: T(['Virtuoso', 'Spectre', 'gpdk090', 'Current Sensing', 'Adaptive PWM']), href: base + 'Adaptive-Motor-Driver' },
+      { mode: 'ROBOTICS', color: R, artBg: '#3A0916', title: 'Team Vyadh Robotic Arm', text: 'Control stack for a Mars rover arm: ROS 2 Jazzy on a Jetson drives seven motor channels on an STM32, which owns ramping and a hardware watchdog.', tags: T(['ROS 2 Jazzy', 'Jetson Orin Nano', 'STM32', 'Motor Control', 'AS5600']), href: base + 'Team-Vyadh-Robotic-Arm' },
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'Reliability-Aware DFT', text: 'A robotic SoC that tests itself while it runs. A reliability-aware scheduler decides what to check and when, ranking blocks by criticality, health and age.', tags: T(['DFT', 'MBIST', 'SystemVerilog', 'Python', 'Yosys']), href: base + 'reliability-aware-dft-robotic-soc' },
+      { mode: 'ROBOTICS', color: R, artBg: '#3A0916', title: 'Gesture-Controlled Arm', text: "Wave your hand and the arm follows. OpenCV and MediaPipe track hand landmarks from a webcam and stream them over WiFi to an ESP32, which drives the arm's joints.", tags: T(['Computer Vision', 'OpenCV', 'MediaPipe', 'ESP32', 'Arduino']), href: base + 'robotic-arm-vision-control' },
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'PID Hardware Accelerator', text: 'A PID controller implemented as RTL instead of software, so the control loop runs in dedicated logic. It sits right where robotics, control and VLSI meet.', tags: T(['Verilog', 'RTL', 'PID Control', 'Hardware Acceleration']), href: base + 'PID_Hardware_Accelerator' }
+    ];
+    const art = [0, 4, 1, 5, 2, 6, 3];
+    const n = list.length;
+    const front = ((step % n) + n) % n;
+    const cards = list.map((c, k) => ({
+      ...c,
+      angle: (k * 360 / n).toFixed(4),
+      opacity: k === front ? 1 : 0.45,
+      a0: art[k] === 0, a1: art[k] === 1, a2: art[k] === 2, a3: art[k] === 3, a4: art[k] === 4, a5: art[k] === 5, a6: art[k] === 6
+    }));
+    const go = (k) => () => {
+      let d = (((k - front) % n) + n) % n;
+      if (d > 3) d -= n;
+      this.setState({ step: step + d });
+    };
+    return {
+      cards,
+      ring: 'rotateY(' + (-step * 360 / n) + 'deg)',
+      prev: () => this.setState({ step: step - 1 }),
+      next: () => this.setState({ step: step + 1 }),
+      tstart: (e) => { const t = (e.touches && e.touches[0]) || e; this.dragX = t.clientX; this.setState({ paused: true }); },
+      tend: (e) => {
+        const t = (e.changedTouches && e.changedTouches[0]) || e;
+        const dx = this.dragX == null ? 0 : t.clientX - this.dragX;
+        this.dragX = null;
+        if (Math.abs(dx) > 40) this.setState({ step: step + (dx < 0 ? 1 : -1), paused: false });
+        else this.setState({ paused: false });
+      },
+      pause: () => this.setState({ paused: true }),
+      resume: () => this.setState({ paused: false }),
+      dots: list.map((c, k) => ({
+        label: 'Show ' + c.title,
+        w: k === front ? '28px' : '10px',
+        bg: k === front ? '#E8C766' : '#4A4A4A',
+        go: go(k)
+      })),
+      caption: (front + 1) + ' / ' + n + '   ' + list[front].title,
+      groups: [
+        { title: 'Chip design', color: V, items: T(['SystemVerilog', 'Verilog', 'Genus', 'Innovus', 'Tempus', 'Conformal LEC', 'Virtuoso', 'Spectre', 'QuestaSim', 'Xcelium', 'Verilator', 'Quartus', 'Yosys', 'Tcl', 'Perl']) },
+        { title: 'Robotics and embedded', color: R, items: T(['ROS 2 Jazzy', 'STM32', 'ESP32', 'Arduino', 'Jetson Orin Nano', 'Altium Designer', 'Fusion 360', 'Simulink', 'PID control', 'Encoders and motor drivers']) },
+        { title: 'Vision and software', color: '#E4E4DF', items: T(['Python', 'OpenCV', 'MediaPipe', 'Open3D', 'RealSense', 'FastAPI', 'SQLite', 'pytest']) }
+      ]
+    };
+  }
+}
+
+;return (typeof Component!=="undefined"&&Component)||undefined};</script>
+<meta charset="utf-8">
+<title>Projects</title>
+<script src="../assets/js/dc-runtime.js"></script>
+<style>@font-face{font-family:'Manrope';font-style:normal;font-display:swap;font-weight:200 800;src:url('../assets/fonts/manrope-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}@font-face{font-family:'Manrope';font-style:normal;font-display:swap;font-weight:200 800;src:url('../assets/fonts/manrope-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}</style><style>
+@media (max-width:640px){
+html{-webkit-text-size-adjust:100%}
+header{flex-wrap:nowrap!important;justify-content:space-between!important;gap:6px!important;padding:10px 0!important}
+header nav{flex-wrap:nowrap!important;gap:0 11px!important;font-size:13px!important;white-space:nowrap}
+header nav a{min-height:40px!important}
+header [role=group]{padding:3px!important;font-size:10px!important;letter-spacing:.03em!important;flex:none}
+header [role=group] a,header [role=group] span{min-height:34px!important;padding:0 10px!important}
+section{padding-left:0!important;padding-right:0!important}
+h1{font-size:clamp(52px,17vw,84px)!important}
+h2{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.1!important}
+p{font-size:16px!important}
+a[style*="min-height: 52px"]{min-height:46px!important;padding:0 20px!important}
+figure{flex-basis:100%!important}
+img,svg{max-width:100%}
+}
+@media (min-width:1500px){body{font-size:105%}}
+</style></head>
+<body>
+<x-dc>
+<helmet>
+<style>
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+/* latin-ext */
+
+/* latin */
+
+</style>
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+a:hover{opacity:0.8}
+a:focus-visible,button:focus-visible{outline:2px solid #E8C766;outline-offset:3px}
+@media (max-width: 560px){.ringsec{zoom:0.7}}
+@media (min-width:900px){header[style*="padding: 24px 0"]{padding:10px 0!important}section[style*="padding: 40px 0px 8px"]{padding:10px 0 0!important}section[style*="padding: 40px 0px 8px"] h1{font-size:clamp(52px,min(7vw,10vh),110px)!important;margin-bottom:0!important;line-height:.95!important}.ringsec{zoom:.6}}
+@media (min-width:900px) and (min-height:800px){.ringsec{zoom:.68}}
+@media (min-width:900px) and (min-height:880px){.ringsec{zoom:.76}}
+@media (min-width:900px) and (min-height:960px){.ringsec{zoom:.86}}
+@media (min-width:900px) and (min-height:1040px){.ringsec{zoom:.96}}
+@media (min-width:900px){#top{position:relative!important}.ringsec{zoom:.68!important}button[aria-label="Previous project"],button[aria-label="Next project"]{position:absolute!important;top:452px!important;transform:translateY(-50%)!important;width:56px!important;height:56px!important;z-index:5}button[aria-label="Previous project"]{left:calc(50% - 360px)!important}button[aria-label="Next project"]{left:auto!important;right:calc(50% - 360px)!important}.ringsec + div{margin-top:90px!important}}
+@media (min-width:900px) and (min-height:800px) and (max-height:879px){.ringsec{zoom:.8!important}button[aria-label="Previous project"],button[aria-label="Next project"]{top:496px!important}button[aria-label="Previous project"]{left:calc(50% - 400px)!important}button[aria-label="Next project"]{right:calc(50% - 400px)!important}}
+@media (min-width:900px) and (min-height:880px){.ringsec{zoom:.9!important}button[aria-label="Previous project"],button[aria-label="Next project"]{top:533px!important}button[aria-label="Previous project"]{left:calc(50% - 430px)!important}button[aria-label="Next project"]{right:calc(50% - 430px)!important}}
+</style>
+</helmet>
+<div id="top" style="background: radial-gradient(ellipse 45% 38% at 16% 24%, rgba(37, 99, 235, 0.3), transparent 70%), radial-gradient(ellipse 45% 38% at 84% 24%, rgba(128, 0, 32, 0.42), transparent 70%), #07070C; color: #F2F2EE; font-family: 'Manrope', system-ui, sans-serif; min-height: 2500px; overflow: hidden">
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 32px; box-sizing: border-box">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px 28px; padding: 24px 0">
+<nav style="display: flex; flex-wrap: wrap; gap: 0 28px; font-size: 16px; color: #A0A0A0">
+<a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px">Home</a>
+<span aria-current="page" style="display: inline-flex; align-items: center; min-height: 44px; color: #F2F2EE; font-weight: 600">Projects</span>
+<a href="About.dc.html" style="display: inline-flex; align-items: center; min-height: 44px">About</a>
+</nav>
+<div role="group" aria-label="Mode" style="display: inline-flex; padding: 4px; background: #1B1B1B; border: 1px solid #333333; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em">
+<a href="Vlsi.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; color: #A0A0A0">VLSI</a>
+<a href="Robotics.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; color: #A0A0A0">ROBOTICS</a>
+</div>
+</header>
+
+<section style="padding: 40px 0 8px; text-align: center">
+<h1 style="margin: 0 0 20px; font-size: clamp(46.1px, 10.1vw, 126.7px); font-weight: 700; line-height: 0.9; letter-spacing: -0.06em">Projects</h1>
+</section>
+
+</div>
+
+<section class="ringsec" sc-camel-on-mouse-enter="{{pause}}" sc-camel-on-mouse-leave="{{resume}}" sc-camel-on-touch-start="{{tstart}}" sc-camel-on-touch-end="{{tend}}" sc-camel-on-mouse-down="{{tstart}}" sc-camel-on-mouse-up="{{tend}}" style="touch-action: pan-y; user-select: none; -webkit-user-select: none; position: relative; height: 800px; perspective: 1800px; overflow: hidden">
+<div style="position: absolute; left: 50%; top: 100px; width: 320px; height: 540px; margin-left: -160px; transform-style: preserve-3d; transform: {{ring}}; transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1)">
+<sc-for list="{{cards}}" as="card" hint-placeholder-count="7">
+<div style="position: absolute; left: 0; top: 0; width: 320px; height: 540px; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; background: #1B1B1B; border: 1px solid #2E2E2E; border-radius: 24px; transform: rotateY({{card.angle}}deg) translateZ(360px); backface-visibility: hidden; -webkit-backface-visibility: hidden; opacity: {{card.opacity}}; transition: opacity 600ms ease">
+<div style="height: 150px; display: flex; align-items: center; justify-content: center; background: {{card.artBg}}">
+<sc-if value="{{card.a0}}" hint-placeholder-val="{{ true }}">
+<svg sc-camel-view-box="0 0 280 150" width="280" height="150" role="img" aria-label="Corner points marked on an edge outline">
+<path d="M40 40 H240 M40 75 H240 M40 110 H240 M80 20 V130 M140 20 V130 M200 20 V130" fill="none" stroke="#F2F2EE" stroke-opacity="0.08"></path>
+<path d="M80 110 V50 H160 V80 H200 V110 Z" fill="none" stroke="#9DB4FF" stroke-width="2.5" stroke-linejoin="round"></path>
+<circle cx="80" cy="50" r="7" fill="#9DB4FF" fill-opacity="0.3" stroke="#9DB4FF" stroke-width="2"></circle>
+<circle cx="160" cy="50" r="7" fill="#9DB4FF" fill-opacity="0.3" stroke="#9DB4FF" stroke-width="2"></circle>
+<circle cx="160" cy="80" r="7" fill="#9DB4FF" fill-opacity="0.3" stroke="#9DB4FF" stroke-width="2"></circle>
+<circle cx="200" cy="80" r="7" fill="#9DB4FF" fill-opacity="0.3" stroke="#9DB4FF" stroke-width="2"></circle>
+<circle cx="80" cy="110" r="7" fill="#9DB4FF" fill-opacity="0.3" stroke="#9DB4FF" stroke-width="2"></circle>
+<circle cx="200" cy="110" r="7" fill="#9DB4FF" fill-opacity="0.3" stroke="#9DB4FF" stroke-width="2"></circle>
+</svg>
+</sc-if>
+<sc-if value="{{card.a1}}" hint-placeholder-val="{{ false }}">
+<svg sc-camel-view-box="0 0 280 150" width="280" height="150" role="img" aria-label="H-bridge schematic with a motor in the middle">
+<path d="M70 30 H210 M70 120 H210 M90 30 V40 M90 64 V86 M90 110 V120 M190 30 V40 M190 64 V86 M190 110 V120 M90 75 H112 M168 75 H190" fill="none" stroke="#BDBDB8" stroke-width="2"></path>
+<rect x="82" y="40" width="16" height="24" rx="3" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<rect x="82" y="86" width="16" height="24" rx="3" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<rect x="182" y="40" width="16" height="24" rx="3" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<rect x="182" y="86" width="16" height="24" rx="3" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<circle cx="140" cy="75" r="28" fill="#9DB4FF" fill-opacity="0.15" stroke="#9DB4FF" stroke-width="2.5"></circle>
+<text x="140" y="83" text-anchor="middle" font-size="22" font-weight="700" fill="#9DB4FF">M</text>
+</svg>
+</sc-if>
+<sc-if value="{{card.a2}}" hint-placeholder-val="{{ false }}">
+<svg sc-camel-view-box="0 0 280 150" width="280" height="150" role="img" aria-label="Scan chain of five registers with one flagged and a scheduler below">
+<path d="M10 60 H24 M60 60 H72 M108 60 H120 M156 60 H168 M204 60 H216 M252 60 H270" fill="none" stroke="#BDBDB8" stroke-width="2"></path>
+<rect x="24" y="44" width="36" height="32" rx="4" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<rect x="72" y="44" width="36" height="32" rx="4" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<rect x="120" y="44" width="36" height="32" rx="4" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<rect x="168" y="44" width="36" height="32" rx="4" fill="#9DB4FF" fill-opacity="0.4" stroke="#9DB4FF" stroke-width="2"></rect>
+<rect x="216" y="44" width="36" height="32" rx="4" fill="#0F1B47" stroke="#9DB4FF" stroke-width="2"></rect>
+<path d="M186 76 V98" fill="none" stroke="#9DB4FF" stroke-width="2" stroke-dasharray="3 4"></path>
+<rect x="96" y="98" width="180" height="28" rx="6" fill="none" stroke="#BDBDB8" stroke-opacity="0.6"></rect>
+<text x="186" y="116" text-anchor="middle" font-size="11" letter-spacing="1" fill="#BDBDB8">SCHEDULER</text>
+</svg>
+</sc-if>
+<sc-if value="{{card.a3}}" hint-placeholder-val="{{ false }}">
+<svg sc-camel-view-box="0 0 280 150" width="280" height="150" role="img" aria-label="Control loop with a PID block driving a motor and feedback returning to the summing point">
+<path d="M10 75 H40 M64 75 H86 M142 75 H172 M218 75 H262 M255 69 L262 75 L255 81" fill="none" stroke="#BDBDB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="52" cy="75" r="12" fill="none" stroke="#BDBDB8" stroke-width="2"></circle>
+<rect x="86" y="55" width="56" height="40" rx="4" fill="#9DB4FF" fill-opacity="0.15" stroke="#9DB4FF" stroke-width="2"></rect>
+<text x="114" y="80" text-anchor="middle" font-size="13" font-weight="600" fill="#9DB4FF">PID</text>
+<circle cx="196" cy="75" r="22" fill="#E8C766" fill-opacity="0.12" stroke="#E8C766" stroke-width="2.5"></circle>
+<text x="196" y="82" text-anchor="middle" font-size="18" font-weight="700" fill="#E8C766">M</text>
+<path d="M240 75 V118 H52 V87 M46 94 L52 87 L58 94" fill="none" stroke="#BDBDB8" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="240" cy="75" r="3" fill="#BDBDB8"></circle>
+</svg>
+</sc-if>
+<sc-if value="{{card.a4}}" hint-placeholder-val="{{ false }}">
+<svg sc-camel-view-box="0 0 280 150" width="280" height="150" role="img" aria-label="Parcel wireframe with length and height measurement lines">
+<path d="M90 60 H170 V116 H90 Z M90 60 L120 40 H200 L170 60 M170 116 L200 96 V40" fill="#E8C766" fill-opacity="0.1" stroke="#E8C766" stroke-width="2.5" stroke-linejoin="round"></path>
+<path d="M90 132 H170 M90 127 V137 M170 127 V137 M214 40 V96 M209 40 H219 M209 96 H219" fill="none" stroke="#BDBDB8" stroke-width="1.5" stroke-dasharray="4 3"></path>
+<text x="130" y="146" text-anchor="middle" font-size="11" fill="#BDBDB8">L</text>
+<text x="228" y="72" font-size="11" fill="#BDBDB8">H</text>
+</svg>
+</sc-if>
+<sc-if value="{{card.a5}}" hint-placeholder-val="{{ false }}">
+<svg sc-camel-view-box="0 0 280 150" width="280" height="150" role="img" aria-label="Three-joint robotic arm reaching out from a base">
+<path d="M30 128 H250" fill="none" stroke="#F2F2EE" stroke-opacity="0.2"></path>
+<rect x="40" y="118" width="70" height="10" rx="2" fill="#2A2A2A"></rect>
+<path d="M75 118 L125 70 L190 52 L232 82" fill="none" stroke="#E8C766" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="75" cy="118" r="8" fill="#3A0916" stroke="#E8C766" stroke-width="2.5"></circle>
+<circle cx="125" cy="70" r="8" fill="#3A0916" stroke="#E8C766" stroke-width="2.5"></circle>
+<circle cx="190" cy="52" r="8" fill="#3A0916" stroke="#E8C766" stroke-width="2.5"></circle>
+<circle cx="232" cy="82" r="5" fill="#E8C766"></circle>
+</svg>
+</sc-if>
+<sc-if value="{{card.a6}}" hint-placeholder-val="{{ false }}">
+<svg sc-camel-view-box="0 0 280 150" width="280" height="150" role="img" aria-label="Hand landmark skeleton pointing to a small robotic arm">
+<path d="M70 110 L40 62 M70 110 L62 42 M70 110 L88 36 M70 110 L112 48 M70 110 L128 78" fill="none" stroke="#BDBDB8" stroke-width="2" stroke-linecap="round"></path>
+<circle cx="70" cy="110" r="6" fill="#E8C766"></circle>
+<circle cx="40" cy="62" r="5" fill="#E8C766"></circle>
+<circle cx="62" cy="42" r="5" fill="#E8C766"></circle>
+<circle cx="88" cy="36" r="5" fill="#E8C766"></circle>
+<circle cx="112" cy="48" r="5" fill="#E8C766"></circle>
+<circle cx="128" cy="78" r="5" fill="#E8C766"></circle>
+<path d="M150 78 H184 M176 70 L184 78 L176 86" fill="none" stroke="#E8C766" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M200 118 L222 86 L262 76" fill="none" stroke="#E8C766" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="200" cy="118" r="6" fill="#3A0916" stroke="#E8C766" stroke-width="2"></circle>
+<circle cx="222" cy="86" r="6" fill="#3A0916" stroke="#E8C766" stroke-width="2"></circle>
+</svg>
+</sc-if>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; padding: 20px">
+<span style="align-self: flex-start; margin-bottom: 12px; padding: 4px 10px; border: 1px solid {{card.color}}; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: {{card.color}}">{{card.mode}}</span>
+<h3 style="margin: 0 0 8px; font-size: 20.2px; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em">{{card.title}}</h3>
+<p style="margin: 0 0 14px; font-size: 14px; line-height: 1.5; color: #BDBDB8">{{card.text}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px">
+<sc-for list="{{card.tags}}" as="tag" hint-placeholder-count="3">
+<span style="padding: 5px 9px; border: 1px solid #333333; border-radius: 8px; background: #262626; font-size: 12px; font-weight: 500; color: #D6D6D1">{{tag.t}}</span>
+</sc-for>
+</div>
+<a href="{{card.href}}" style="margin-top: auto; display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; background: #F2F2EE; color: #121212; font-weight: 600; font-size: 14px">View on GitHub ↗</a>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 32px 72px; box-sizing: border-box; text-align: center">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px">
+<button sc-camel-on-click="{{prev}}" aria-label="Previous project" style="width: 52px; height: 52px; border: 1px solid #333333; border-radius: 999px; background: #1B1B1B; color: #F2F2EE; font-size: 18.4px; cursor: pointer">←</button>
+<div style="display: flex; align-items: center">
+<sc-for list="{{dots}}" as="dot" hint-placeholder-count="7">
+<button sc-camel-on-click="{{dot.go}}" aria-label="{{dot.label}}" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: none; cursor: pointer">
+<span style="display: block; width: {{dot.w}}; height: 10px; border-radius: 999px; background: {{dot.bg}}; transition: width 300ms ease"></span>
+</button>
+</sc-for>
+</div>
+<button sc-camel-on-click="{{next}}" aria-label="Next project" style="width: 52px; height: 52px; border: 1px solid #333333; border-radius: 999px; background: #1B1B1B; color: #F2F2EE; font-size: 18.4px; cursor: pointer">→</button>
+</div>
+<div aria-live="polite" style="margin: 16px 0 36px; font-size: 14px; color: #A0A0A0">{{caption}}</div>
+<a href="https://github.com/ashmitsingh7" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border: 1px solid #F2F2EE; border-radius: 14px; font-weight: 600; font-size: 16px">All repositories on GitHub ↗</a>
+</div>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 32px 120px; box-sizing: border-box">
+<div style="padding-top: 72px; border-top: 1px solid #2A2A2A">
+<h2 style="margin: 0 0 40px; font-size: clamp(40.8px, 5.8vw, 69.1px); font-weight: 700; line-height: 0.95; letter-spacing: -0.05em">Skills</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<sc-for list="{{groups}}" as="group" hint-placeholder-count="3">
+<div style="flex: 1 1 320px; min-width: 0; box-sizing: border-box; padding: 28px; border: 1px solid #2E2E2E; border-radius: 24px; background: #151515">
+<h3 style="margin: 0 0 20px; font-size: 20.2px; font-weight: 600; letter-spacing: -0.02em; color: {{group.color}}">{{group.title}}</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{group.items}}" as="item" hint-placeholder-count="8">
+<span style="padding: 8px 14px; border: 1px solid #333333; border-radius: 999px; background: #1B1B1B; font-size: 14px; font-weight: 500; color: #E4E4DF">{{item.t}}</span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:2500}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+  }
+  componentWillUnmount() {
+    if (this.timer) clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state || {};
+    const step = s.step || 0;
+    const V = '#9DB4FF';
+    const R = '#E8C766';
+    const T = (arr) => arr.map((t) => ({ t }));
+    const base = 'https://github.com/ashmitsingh7/';
+    const list = [
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'Harris Corner Detector ASIC', text: 'A streaming Harris corner detector in SystemVerilog, taken to a routed layout and checked against a bit-exact reference model.', tags: T(['Computer Vision', 'SystemVerilog', 'Genus', 'Innovus', 'Conformal LEC']), href: base + 'harris-corner-detector' },
+      { mode: 'ROBOTICS', color: R, artBg: '#3A0916', title: 'Warehouse DWS at Delhivery', text: 'Parcel-measuring station built solo at Delhivery. An Intel RealSense D455 and point-cloud vision (RANSAC, PCA) size each parcel; tested on 100+ real shipments.', tags: T(['Computer Vision', 'RealSense D455', 'Point Clouds', 'ROS2', 'FastAPI']), href: base + 'dws' },
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'Load-Aware Adaptive H-Bridge', text: 'A brushed-DC motor driver that senses its own load and eases off the PWM as current climbs, instead of waiting for a hard cutoff. Built in Cadence at 90 nm.', tags: T(['Virtuoso', 'Spectre', 'gpdk090', 'Current Sensing', 'Adaptive PWM']), href: base + 'Adaptive-Motor-Driver' },
+      { mode: 'ROBOTICS', color: R, artBg: '#3A0916', title: 'Team Vyadh Robotic Arm', text: 'Control stack for a Mars rover arm: ROS 2 Jazzy on a Jetson drives seven motor channels on an STM32, which owns ramping and a hardware watchdog.', tags: T(['ROS 2 Jazzy', 'Jetson Orin Nano', 'STM32', 'Motor Control', 'AS5600']), href: base + 'Team-Vyadh-Robotic-Arm' },
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'Reliability-Aware DFT', text: 'A robotic SoC that tests itself while it runs. A reliability-aware scheduler decides what to check and when, ranking blocks by criticality, health and age.', tags: T(['DFT', 'MBIST', 'SystemVerilog', 'Python', 'Yosys']), href: base + 'reliability-aware-dft-robotic-soc' },
+      { mode: 'ROBOTICS', color: R, artBg: '#3A0916', title: 'Gesture-Controlled Arm', text: "Wave your hand and the arm follows. OpenCV and MediaPipe track hand landmarks from a webcam and stream them over WiFi to an ESP32, which drives the arm's joints.", tags: T(['Computer Vision', 'OpenCV', 'MediaPipe', 'ESP32', 'Arduino']), href: base + 'robotic-arm-vision-control' },
+      { mode: 'VLSI', color: V, artBg: '#0F1B47', title: 'PID Hardware Accelerator', text: 'A PID controller implemented as RTL instead of software, so the control loop runs in dedicated logic. It sits right where robotics, control and VLSI meet.', tags: T(['Verilog', 'RTL', 'PID Control', 'Hardware Acceleration']), href: base + 'PID_Hardware_Accelerator' }
+    ];
+    const art = [0, 4, 1, 5, 2, 6, 3];
+    const n = list.length;
+    const front = ((step % n) + n) % n;
+    const cards = list.map((c, k) => ({
+      ...c,
+      angle: (k * 360 / n).toFixed(4),
+      opacity: k === front ? 1 : 0.45,
+      a0: art[k] === 0, a1: art[k] === 1, a2: art[k] === 2, a3: art[k] === 3, a4: art[k] === 4, a5: art[k] === 5, a6: art[k] === 6
+    }));
+    const go = (k) => () => {
+      let d = (((k - front) % n) + n) % n;
+      if (d > 3) d -= n;
+      this.setState({ step: step + d });
+    };
+    return {
+      cards,
+      ring: 'rotateY(' + (-step * 360 / n) + 'deg)',
+      prev: () => this.setState({ step: step - 1 }),
+      next: () => this.setState({ step: step + 1 }),
+      tstart: (e) => { const t = (e.touches && e.touches[0]) || e; this.dragX = t.clientX; this.setState({ paused: true }); },
+      tend: (e) => {
+        const t = (e.changedTouches && e.changedTouches[0]) || e;
+        const dx = this.dragX == null ? 0 : t.clientX - this.dragX;
+        this.dragX = null;
+        if (Math.abs(dx) > 40) this.setState({ step: step + (dx < 0 ? 1 : -1), paused: false });
+        else this.setState({ paused: false });
+      },
+      pause: () => this.setState({ paused: true }),
+      resume: () => this.setState({ paused: false }),
+      dots: list.map((c, k) => ({
+        label: 'Show ' + c.title,
+        w: k === front ? '28px' : '10px',
+        bg: k === front ? '#E8C766' : '#4A4A4A',
+        go: go(k)
+      })),
+      caption: (front + 1) + ' / ' + n + '   ' + list[front].title,
+      groups: [
+        { title: 'Chip design', color: V, items: T(['SystemVerilog', 'Verilog', 'Genus', 'Innovus', 'Tempus', 'Conformal LEC', 'Virtuoso', 'Spectre', 'QuestaSim', 'Xcelium', 'Verilator', 'Quartus', 'Yosys', 'Tcl', 'Perl']) },
+        { title: 'Robotics and embedded', color: R, items: T(['ROS 2 Jazzy', 'STM32', 'ESP32', 'Arduino', 'Jetson Orin Nano', 'Altium Designer', 'Fusion 360', 'Simulink', 'PID control', 'Encoders and motor drivers']) },
+        { title: 'Vision and software', color: '#E4E4DF', items: T(['Python', 'OpenCV', 'MediaPipe', 'Open3D', 'RealSense', 'FastAPI', 'SQLite', 'pytest']) }
+      ]
+    };
+  }
+}
+</script>
+
+
+</body></html>
